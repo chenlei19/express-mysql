@@ -1,0 +1,15 @@
+.DS_Store
+node_modules/
+http_flush.bat
+http_logs.bat
+http_start.bat
+http_stop.bat
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.project
