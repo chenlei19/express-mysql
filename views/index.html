@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js" type="text/JavaScript"></script>
+    <script src="jquery.js" type="text/JavaScript"></script>
+</head>
+<script>
+    $(function(){
+        var username=document.cookie.split(";")[0].split("=")[1];
+        console.log(username)
+            $.ajax({
+                url:'http://10.150.142.131:8888/home/userInfo',
+                type:'post',
+                data:{},
+                dataType:'json',
+                success(data){
+                    if(data.code == 0){
+                      $(".username").html(data.users)
+                    }else{
+                        alert(data.msg);
+                    }
+                },
+                error(){
+                    alert('错误');
+                }
+            })
+
+    })
+</script>
+<body>
+<form id="form">
+   <div><span class="username"></span>你好!欢迎登录 这是首页</div>
+    <div>
+        <a href="/logout">退出</a>
+    </div>
+</form>
+</body>
+</html>

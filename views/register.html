@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js" type="text/JavaScript"></script>
+</head>
+<script>
+    $(function(){
+        $('#regist').click(function(){
+            $.ajax({
+                url:'http://10.150.142.131:8888/register',
+                type:'post',
+                data:{
+                    user:$('#user').val(),
+                    pass:$('#pass').val(),
+                    pass2:$('#pass2').val()
+                },
+                dataType:'json',
+                xhrFields:{withCredentials: true},
+                success(data){
+                    if(data.code == 0){
+                        window.location.href = '/home'
+                    }else{
+                        alert(data.msg);
+                    }
+                },
+                error(){
+                    alert('错误');
+                }
+            })
+        })
+    })
+</script>
+<body>
+<form id="form">
+    <div>
+        账号 <input type="text" name="user" id="user">
+    </div>
+    <div>
+        密码 <input type="password" name="pass" id="pass">
+    </div>
+    <div>
+        确认密码 <input type="password" name="pass2" id="pass2">
+    </div>
+    <div>
+        <input type="button"  value="注册" id="regist">
+    </div>
+</form>
+</body>
+</html>

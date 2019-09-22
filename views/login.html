@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js" type="text/JavaScript"></script>
+</head>
+<script>
+    $(function(){
+        $('#login').click(function(){
+            var formdata = new FormData($("#form")[0]);
+            // console.log(formdata.get("user")); // 获取名字)
+            $.ajax({
+                url:'http://10.150.142.131:8888/login',
+                type:'post',
+                data:formdata,
+                dataType:'json',
+                contentType: false, // 必须得 false
+                                        // 这个不关会扔一个默认值 application/x-www-form-urlencoded 过去，后端拿不到数据的！
+                                        // 而且你甚至不能传个字符串 'multipart/form-data'，后端一样拿不到数据！
+                processData: false, //必须得 false
+                success(data){
+                    if(data.code == 0){
+                        window.location.href = '/home'
+                    }else{
+                        alert(data.msg);
+                    }
+                },
+                error(){
+                    alert('错误');
+                },
+                xhr(){
+                    var xhr = $.ajaxSettings.xhr();
+                    if(xhr.upload){
+                        xhr.upload.addEventListener('progress',function(ev){
+                            console.log(ev.loaded, ev.total)
+                        },false)
+                        return xhr
+                    }
+                }
+            })
+        })
+    })
+</script>
+<body>
+<form id="form">
+    <div>
+        账号 <input type="text" name="user" id="user">
+    </div>
+    <div>
+        密码 <input type="password" name="pass" id="pass">
+    </div>
+    <div>
+        附件 <input type="file" name="files" id="files" multiple="multiple">
+    </div>
+    <div>
+       <a href="/register">注册</a>
+        <input type="button"  value="登录" id="login">
+    </div>
+</form>
+</body>
+</html>
